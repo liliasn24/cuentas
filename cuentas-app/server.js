@@ -22,12 +22,33 @@ if (process.env.NODE_ENV !== 'development'){
 }
 
 /* Controller Goes Here Remove the tes*/
-app.get('/test', (req, res)=>{
-	res.status(200).json({
-		website: 'My Website',
-		info: 'Not that much'
-	})
+// CREATE
+app.post('/api/cuentas', (req, res)=> {
+  res.json(req.body)
 })
+// READ
+
+app.get('/api/cuentas', (req, res) => {
+  res.json({ "route": 'index'})
+})
+
+app.get('/api/cuentas/:id', (req, res) => {
+  res.json({ "route": 'show'})
+})
+
+// UPDATE
+
+app.put('/api/cuentas/:id', (req, res) => {
+  res.json(req.body)
+})
+
+// DELETE
+
+app.delete('/api/cuentas/:id', (req, res) => {
+  res.json({ "route": 'delete'})
+})
+
+
 /* Controller Ends here */
 //LISTENER
 
