@@ -2,9 +2,9 @@ const { model, Schema } = require('mongoose');
 
 const cuentaSchema = new Schema ({
   amount: Number,
-  for: String,
+  for: String
 }, {
-  timeStamos: true
+  timestamps: true
 })
 
-module.export = model("Cuenta", cuentaSchema )
+module.exports = model("Cuenta", cuentaSchema )

@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
+const Cuenta = require('./models/cuenta');
 const path = require('path');
 
 const MONGODB_URI = process.env.MONGODB_URI
@@ -23,8 +24,16 @@ if (process.env.NODE_ENV !== 'development'){
 
 /* Controller Goes Here Remove the tes*/
 // CREATE
-app.post('/api/cuentas', (req, res)=> {
-  res.json(req.body)
+app.post('/api/cuentas', async(req, res)=> {
+  try{
+    const createdCuenta = await Cuenta.create(req.body)
+    res.status(200).json(createdCuenta)
+  }catch(error){
+    console.error(error)
+    res.status(400).json({
+      message: error.message
+    })
+  }
 })
 // READ
 
