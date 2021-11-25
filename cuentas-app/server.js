@@ -49,8 +49,16 @@ app.get('/api/cuentas', async (req, res) => {
   }
 })
 
-app.get('/api/cuentas/:id', (req, res) => {
-  res.json({ "route": 'show'})
+app.get('/api/cuentas/:id', async (req, res) => {
+  try {
+    const foundCuenta = await Cuenta.findById(req.params.id)
+    res.status(200).json(foundCuenta)
+  }catch(error){
+    console.error(error)
+    res.status(404).json({
+      message: error.message
+    })
+  }
 })
 
 // UPDATE
