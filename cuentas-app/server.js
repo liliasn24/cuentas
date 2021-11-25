@@ -37,8 +37,16 @@ app.post('/api/cuentas', async(req, res)=> {
 })
 // READ
 
-app.get('/api/cuentas', (req, res) => {
-  res.json({ "route": 'index'})
+app.get('/api/cuentas', async (req, res) => {
+  try {
+    const foundCuentas = await Cuenta.find({})
+    res.status(200).json(foundCuentas)
+  } catch(error){
+    console.error(error)
+    res.status(404).json({
+      message: error.message
+    })
+  }
 })
 
 app.get('/api/cuentas/:id', (req, res) => {
