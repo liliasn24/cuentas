@@ -15,7 +15,7 @@ export default function App(props) {
 
 	const handleClick = async e => {
 		try {
-			const response = await fetch('/api/turtles', {
+			const response = await fetch('/api/cuentas', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -26,6 +26,7 @@ export default function App(props) {
 				})
 			});
 			const data = await response.json();
+			setCuentas([...cuentas, data]);
 			setCuenta(data);
 		} catch (error) {
 			console.error(error);
