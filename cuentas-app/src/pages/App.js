@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import cuenta from '../../models/cuenta';
 
 export default function App(props) {
 	const [cuentas, setCuentas] = useState([]);
-	const [singleCuenta, setCuenta] = useState({});
+	const [singleCuenta, setCuenta] = useState({
+		amount: '',
+		for: ''
+	});
 	useEffect(() => {
 		(async () => {
 			try {
@@ -33,9 +37,30 @@ export default function App(props) {
 		}
 	};
 
-	const handleSubmit = async e => {};
+	const handleSubmit = async e => {
+		e.preventDefault();
+		try {
+			const response = await fetch('/api/cuentas', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(singleCuenta)
+			});
+			const data = await response.json();
+			setCuentas([...cuentas, data]);
+			setCuenta({
+				amount: '',
+				for: ''
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
-	const handleChange = e => {};
+	const handleChange = e => {
+		setCuenta({ ...singleCuenta, [e.target.id]: e.target.value });
+	};
 
 	return (
 		<div className="AppPage">
