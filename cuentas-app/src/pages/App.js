@@ -32,6 +32,11 @@ export default function App(props) {
 			console.error(error);
 		}
 	};
+
+	const handleSubmit = async e => {};
+
+	const handleChange = e => {};
+
 	return (
 		<div className="AppPage">
 			This is the {props.page} page
@@ -44,7 +49,21 @@ export default function App(props) {
 					);
 				})}
 			</ul>
-			<button onClick={handleClick}>click me to enter a new cuenta</button>
+			<form onSubmit={handleSubmit}>
+				<input
+					type="text"
+					id="amount"
+					value={singleCuenta.amount}
+					onChange={handleChange}
+				></input>
+				<input
+					type="text"
+					id="for"
+					value={singleCuenta.for}
+					onChange={handleChange}
+				></input>
+				<input type="submit" value="Submit"></input>
+			</form>
 		</div>
 	);
 }
