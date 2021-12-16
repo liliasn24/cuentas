@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import cuenta from '../../models/cuenta';
 
 export default function App(props) {
 	const [cuentas, setCuentas] = useState([]);
@@ -13,7 +12,9 @@ export default function App(props) {
 				const response = await fetch('/api/cuentas');
 				const data = await response.json();
 				setCuentas(data);
-			} catch (error) {}
+			} catch (error) {
+				console.error(error);
+			}
 		})();
 	}, []);
 
@@ -65,6 +66,21 @@ export default function App(props) {
 	return (
 		<div className="AppPage">
 			This is the {props.page} page
+			<form onSubmit={handleSubmit}>
+				<input
+					type="text"
+					id="amount"
+					value={singleCuenta.amount}
+					onChange={handleChange}
+				/>
+				<input
+					type="text"
+					id="for"
+					value={singleCuenta.for}
+					onChange={handleChange}
+				/>
+				<input type="submit" value="Submit" />
+			</form>
 			<ul>
 				{cuentas.map(cuenta => {
 					return (
@@ -74,21 +90,6 @@ export default function App(props) {
 					);
 				})}
 			</ul>
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					id="amount"
-					value={singleCuenta.amount}
-					onChange={handleChange}
-				></input>
-				<input
-					type="text"
-					id="for"
-					value={singleCuenta.for}
-					onChange={handleChange}
-				></input>
-				<input type="submit" value="Submit"></input>
-			</form>
 		</div>
 	);
 }
